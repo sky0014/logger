@@ -2,18 +2,18 @@
 let enable = false;
 let prefix = [];
 
-export function setEnable(value) {
+function setEnable(value) {
   enable = value;
 }
 
-export function setPrefix(value) {
+function setPrefix(value) {
   if (typeof value === "string") {
     value = [value];
   }
-  prefix = value;
+  prefix = value.map((v) => `[${v}]`);
 }
 
-export function initLogger({ enable = false, prefix = [] } = {}) {
+function initLogger({ enable = false, prefix = [] } = {}) {
   setEnable(enable);
   setPrefix(prefix);
 }
@@ -33,7 +33,12 @@ export function makeLogger(...tags) {
     info: customize(console.info, ...tags),
     warn: customize(console.warn, ...tags),
     error: customize(console.error, ...tags),
+    initLogger,
+    setEnable,
+    setPrefix,
   };
 }
 
-export default makeLogger();
+const logger = makeLogger();
+
+export default logger;
