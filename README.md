@@ -1,6 +1,6 @@
 # logger
 
-An easy store for react and hooks.
+A simple logger for js.
 
 ## Install
 
