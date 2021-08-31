@@ -1,0 +1,21 @@
+{
+  "name": "@sky0014/logger",
+  "version": "1.0.0",
+  "description": "A simple logger for js",
+  "main": "src/index.js",
+  "scripts": {
+    "pub": "npm publish --registry=http://registry.npmjs.org --access public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sky0014/logger.git"
+  },
+  "keywords": [],
+  "author": "sky0014 <sky-wang@qq.com>",
+  "bugs": {
+    "url": "https://github.com/sky0014/logger/issues"
+  },
+  "homepage": "https://github.com/sky0014/logger/#readme",
+  "devDependencies": {},
+  "dependencies": {}
+}
