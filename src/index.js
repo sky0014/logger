@@ -6,11 +6,15 @@ function setEnable(value) {
   enable = value;
 }
 
+function wrap(array) {
+  return array.map((v) => `[${v}]`);
+}
+
 function setPrefix(value) {
   if (typeof value === "string") {
     value = [value];
   }
-  prefix = value.map((v) => `[${v}]`);
+  prefix = wrap(value);
 }
 
 function initLogger({ enable = false, prefix = [] } = {}) {
@@ -19,6 +23,7 @@ function initLogger({ enable = false, prefix = [] } = {}) {
 }
 
 function customize(logFunc, ...tags) {
+  tags = wrap(tags);
   return (...args) => {
     if (enable) {
       logFunc.call(console, ...prefix, ...tags, ...args);
