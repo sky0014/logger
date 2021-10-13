@@ -1,49 +1,56 @@
-//log开关
-let enable = false;
-let prefix = [];
+export function createLogger() {
+  //log开关
+  let enable = false;
+  let prefix = [];
 
-function setEnable(value) {
-  enable = value;
-}
-
-function wrap(array) {
-  return array.map((v) => `[${v}]`);
-}
-
-function setPrefix(value) {
-  if (typeof value === "string") {
-    value = [value];
+  function setEnable(value) {
+    enable = value;
   }
-  prefix = wrap(value);
-}
 
-function initLogger({ enable = false, prefix = [] } = {}) {
-  setEnable(enable);
-  setPrefix(prefix);
-}
+  function wrap(array) {
+    return array.map((v) => `[${v}]`);
+  }
 
-function customize(logFunc, ...tags) {
-  tags = wrap(tags);
-  return (...args) => {
-    if (enable) {
-      logFunc.call(console, ...prefix, ...tags, ...args);
+  function setPrefix(value) {
+    if (typeof value === "string") {
+      value = [value];
     }
-  };
+    prefix = wrap(value);
+  }
+
+  function initLogger({ enable = false, prefix = [] } = {}) {
+    setEnable(enable);
+    setPrefix(prefix);
+  }
+
+  function customize(logFunc, ...tags) {
+    tags = wrap(tags);
+    return (...args) => {
+      if (enable) {
+        logFunc.call(console, ...prefix, ...tags, ...args);
+      }
+    };
+  }
+
+  function makeLogger(...tags) {
+    return {
+      log: customize(console.log, ...tags),
+      debug: customize(console.debug, ...tags),
+      info: customize(console.info, ...tags),
+      warn: customize(console.warn, ...tags),
+      error: customize(console.error, ...tags),
+      initLogger,
+      setEnable,
+      setPrefix,
+      makeLogger,
+    };
+  }
+
+  return makeLogger();
 }
 
-export function makeLogger(...tags) {
-  return {
-    log: customize(console.log, ...tags),
-    debug: customize(console.debug, ...tags),
-    info: customize(console.info, ...tags),
-    warn: customize(console.warn, ...tags),
-    error: customize(console.error, ...tags),
-    initLogger,
-    setEnable,
-    setPrefix,
-  };
-}
+const logger = createLogger();
 
-const logger = makeLogger();
+export const { makeLogger } = logger;
 
 export default logger;
