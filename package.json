@@ -1,8 +1,9 @@
 {
   "name": "@sky0014/logger",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "A simple logger for js",
   "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
     "pub": "npm publish --registry=https://registry.npmjs.org --access public",
     "prepublish": "tsc --declaration"
